@@ -16,16 +16,14 @@ class keyvalues:
         if kv is None:
             kv = self.kv
         for k, v in kv.items():
-            toprint = ""
-            for i in range(0, depth):
-                toprint += "\t"
+            toprint = "".join("\t" for _ in range(0, depth))
             if isinstance(v, dict):
-                out.write("{}\"{}\"\n".format(toprint, k))
-                out.write("{}{{\n".format(toprint))
+                out.write(f'{toprint}\"{k}\"\n')
+                out.write(f"{toprint}{{\n")
                 self.recurse_keyvalues(out, v, depth + 1)
-                out.write("{}}}\n".format(toprint))
+                out.write(f"{toprint}}}\n")
             else:
-                out.write("{}\"{}\"\t\t\"{}\"\n".format(toprint, k, v))
+                out.write(f'{toprint}\"{k}\"\t\t\"{v}\"\n')
 
     def parse(self, s):
         TYPE_BLOCK = 0
